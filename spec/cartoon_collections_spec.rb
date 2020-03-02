@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe "Cartoon Collections" do
   describe "#roll_call_dwarves" do
     it "prints out the 7 dwarfs in a numbered list" do
@@ -24,19 +22,30 @@ describe "Cartoon Collections" do
       expect(result.class).to eq(Array)
       expect(result.length).to eq(3)
     end
+def roll_call_dwarves(arr)
+  arr.each.with_index(1) do |element, i|
+    puts "/#{i}.*#{element}/\n" 
+  end 
+end
 
     it "capitalizes each element and adds an exclamation mark (test 1)" do
       fruits = ["apple", "banana", "orange"]
       result = summon_captain_planet(fruits)
       ['Apple!', 'Banana!', 'Orange!'].each { |w| expect(result).to include w }
     end
+def summon_captain_planet(arr)
+  new_arr = [] 
 
     it "capitalizes each element and adds an exclamation mark (test 2)" do
       veggies = ["carrot", "cucumber", "pepper"]
       result = summon_captain_planet(veggies)
       ["Carrot!", "Cucumber!", "Pepper!"].each { |w| expect(result).to include w }
     end
+  arr.map do |element|
+    new_arr << "#{element.capitalize}!"
   end
+  new_arr
+end
 
   describe "#long_planeteer_calls" do
     it "returns true if any calls are longer than 4 characters" do
@@ -49,16 +58,30 @@ describe "Cartoon Collections" do
       expect(long_planeteer_calls(calls_short)).to eq(false)
     end
 
+def long_planeteer_calls(arr)
+  arr.any? do |word|
+    word.length > 4
   end
+end
 
   describe "#find_the_cheese" do
     it "returns the first element of the array that is cheese" do
       contains_cheddar = ["banana", "cheddar", "sock"]
       expect(find_the_cheese(contains_cheddar)).to eq 'cheddar'
+def find_the_cheese(arr)
+  cheese_types = ["cheddar", "gouda", "camembert"]
+  cheese = nil
 
       contains_gouda = ["potato", "gouda", "camembert"]
       expect(find_the_cheese(contains_gouda)).to eq 'gouda'
     end
+  cheese_types.map do |x|
+    if arr.include?(x)
+      cheese = x
+      break
+    end 
+  end 
+  cheese
 
     it "returns nil if the array does not contain a type of cheese" do
       no_cheese = ["ham", "cellphone", "computer"]
